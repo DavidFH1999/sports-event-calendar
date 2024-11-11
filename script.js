@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const addEventButton = document.getElementById('addEventButton');
     generateCalendar();
+
+    addEventButton.addEventListener('click', () => {
+        // Get the values from the form fields
+        const eventDate = document.getElementById('eventDate').value;
+        const eventTime = document.getElementById('eventTime').value;
+        const eventSport = document.getElementById('eventSport').value;
+        const teams = document.getElementById('teams').value;
+
+        // Check if any field is empty
+        if (!eventDate || !eventTime || !eventSport || !teams) {
+            alert("Please fill in all fields!");
+        } else {
+            addEvent();
+        }
+    });
 });
 
 
@@ -41,4 +57,25 @@ function closeNavbar() {
     if (navbarCollapse.classList.contains('show')) {
         navbarToggler.click();
     }
+}
+
+function addEvent() {
+    const eventDate = document.getElementById('eventDate').value;
+    const eventTime = document.getElementById('eventTime').value;
+    const eventSport = document.getElementById('eventSport').value;
+    const teams = document.getElementById('teams').value;
+
+    // Create an object to store the data
+    const event = {
+        date: eventDate,
+        time: eventTime,
+        sport: eventSport,
+        teams: teams
+    };
+
+    // Convert the object to a JSON string
+    const eventJSON = JSON.stringify(event);
+
+    // Store the JSON string in local storage with a key
+    localStorage.setItem('event', eventJSON);
 }
